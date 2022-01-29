@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import { LikePostService } from '@/services/LikePostService'
+import { socket } from '@/socket'
 
 export class LikePostController {
   async handle(req: Request, res: Response) {
@@ -18,6 +19,8 @@ export class LikePostController {
       if (!result.success) {
         return res.status(400).json({ message: result.message })
       }
+
+      socket.emit('post-liked', { postId })
 
       return res.sendStatus(204)
     } catch (error) {

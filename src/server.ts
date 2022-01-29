@@ -2,6 +2,7 @@ import { createServer } from 'http'
 import mongoose from 'mongoose'
 
 import { app } from '@/app'
+import { startSocketIo } from '@/socket'
 
 const start = async () => {
   try {
@@ -14,6 +15,8 @@ const start = async () => {
     server.on('listening', () => {
       console.log(`🚀 Server listening on  http://localhost:${port}`)
     })
+
+    startSocketIo(server)
 
     server.listen(port)
   } catch (error) {

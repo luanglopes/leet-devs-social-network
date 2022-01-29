@@ -1,4 +1,6 @@
+import { getExpirationTime } from '@/helpers/getExpirationTime'
 import { PostModel } from '@/models/Post'
+import { socket } from '@/socket'
 
 export type LikePostInputDTO = {
   postId: string
@@ -19,8 +21,10 @@ export class LikePostService {
 
     const postData = post.toJSON()
 
-    const expiration = postData.createdAt.getTime() + 60 * 1000 + postData.likesCount * (30 * 1000)
+    const expiration = getExpirationTime(postData)
     if (expiration < Date.now()) {
+      socket.emit('post-expired', { postId })
+
       return { success: false, message: 'Post expired' }
     }
 

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import { CreatePostService } from '@/services/CreatePostService'
+import { socket } from '@/socket'
 
 export class CreatePostController {
   async handle(req: Request, res: Response) {
@@ -14,6 +15,8 @@ export class CreatePostController {
       const createPostService = new CreatePostService()
 
       const newPost = await createPostService.execute({ content: body.content })
+
+      socket.emit('post-created', newPost)
 
       return res.status(201).json(newPost)
     } catch (error) {
