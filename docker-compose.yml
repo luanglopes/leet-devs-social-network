@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mongo:
+      image: mongo
+      restart: always
+      logging:
+        driver: "none"
+      ports:
+        - 27017:27017
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: root
+        MONGO_INITDB_DATABASE: engagement-social-network
+
+  backend:
+      build:
+        context: ./
+        dockerfile: Dockerfile.dev
+      ports:
+        - 4000:4000
+      volumes:
+        - .:/home/node/app
+        - /home/node/app/node_modules
+      environment:
+        HTTP_PORT: 4000
+        DATABASE_URL: 'mongodb://root:root@mongo:27017'
+      depends_on:
+        - mongo

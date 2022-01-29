@@ -1,0 +1,17 @@
+# build commands
+FROM node:16
+
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
+
+WORKDIR /home/node/app
+
+COPY ["./package.json", "./package-lock.json", ".nmswcrc.json", ".swcrc", "./"]
+
+RUN npm install
+
+RUN ls -la
+
+USER node
+
+CMD npm run dev

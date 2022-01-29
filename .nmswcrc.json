@@ -1,0 +1,8 @@
+{
+  "nodemon": {
+    "execMap": {
+      "js": "node --experimental-json-modules --experimental-specifier-resolution=node --no-warnings"
+    }
+  },
+  "includeFiles": [".env"]
+}
