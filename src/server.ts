@@ -1,13 +1,25 @@
 import { createServer } from 'http'
+import mongoose from 'mongoose'
 
 import { app } from '@/app'
 
-const server = createServer(app)
+const start = async () => {
+  try {
+    await mongoose.connect(process.env.DATABASE_URL || '')
 
-const port = Number(process.env.HTTP_PORT || 3000)
+    const server = createServer(app)
 
-server.on('listening', () => {
-  console.log(`🚀 Server listening on  http://localhost:${port}`)
-})
+    const port = Number(process.env.HTTP_PORT || 3000)
 
-server.listen(port)
+    server.on('listening', () => {
+      console.log(`🚀 Server listening on  http://localhost:${port}`)
+    })
+
+    server.listen(port)
+  } catch (error) {
+    console.log(error)
+    process.exit(-1)
+  }
+}
+
+start()
