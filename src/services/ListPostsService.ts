@@ -3,7 +3,7 @@ import { Post, PostModel } from '@/models/Post'
 
 export class ListPostsService {
   async execute(): Promise<Post[]> {
-    const posts = await PostModel.find()
+    const posts = await PostModel.find().sort({ createdAt: 'DESC' })
 
     return posts
       .map((post) => post.toJSON())
