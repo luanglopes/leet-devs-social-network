@@ -1,5 +1,5 @@
 # leet-devs-social-network
-Social network that delete posts if it does not receive likes
+Social network that delete posts if it does not receive likes.
 
 # Setup development server
 
@@ -17,7 +17,7 @@ npm run dev
 
 It will start the development server with suto-restarting.
 
-P.S.: That way you need to setup the database by your own, so make sure you did it before staring the server
+> P.S.: That way you need to setup the database by your own, so make sure you did it before staring the server.
 
 ## Setup with docker
 
